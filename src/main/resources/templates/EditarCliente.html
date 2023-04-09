@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<style>
+	.form {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		width: 100%;
+		margin-left: 2px;
+		margin-right: 2px;
+		padding-left: 3em;
+		padding-right: 3em;
+		background-color: #171717;
+		border-radius: 20px;
+	}
+
+	#heading {
+		margin-bottom: -32px;
+		text-align: center;
+		color: rgb(0, 255, 200);
+		font-size: 1.9em;
+	}
+
+	.field {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5em;
+		border-radius: 25px;
+		padding: 0.6em;
+		border: none;
+		outline: none;
+		color: white;
+		background-color: #171717;
+		box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+	}
+
+	.input-field {
+		background: none;
+		border: none;
+		outline: none;
+		width: 100%;
+		color: rgb(0, 255, 200);
+	}
+
+	.form .btn {
+		display: flex;
+		justify-content: center;
+		flex-direction: row;
+		margin-top: 2.5em;
+	}
+
+	.button2 {
+		padding: 0.5em;
+		padding-left: 2.3em;
+		padding-right: 2.3em;
+		border-radius: 5px;
+		border: none;
+		outline: none;
+		transition: .4s ease-in-out;
+		background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
+		color: rgb(0, 0, 0);
+	}
+
+	.button2:hover {
+		background-image: linear-gradient(163deg, #00642f 0%, #13034b 100%);
+		color: rgb(0, 255, 200);
+	}
+
+	.card {
+		border-radius: 22px;
+		transition: all .3s;
+		display: flex;
+		margin-top: 5%;
+		margin-bottom: 9%;
+		margin-left: 30%;
+		max-height: 100%;
+		max-width: 100%;
+	}
+
+	.card2 {
+		border-radius: 0;
+		transition: all .2s;
+		display: flex;
+	}
+
+	body {
+		background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
+		background-size: cover;
+	}
+
+	/*botones*/
+
+	.btn {
+		cursor: pointer;
+		width: 50px;
+		height: 50px;
+		border: none;
+		position: relative;
+		border-radius: 10px;
+		background-color: #171717;
+		;
+		-webkit-box-shadow: 1px 1px 5px .2px #00000035;
+		box-shadow: 1px 1px 5px .2px #00000035;
+		-webkit-transition: .2s linear;
+		transition: .2s linear;
+		transition-delay: .2s;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+		-webkit-box-pack: center;
+		-ms-flex-pack: center;
+		justify-content: space-between;
+
+	}
+
+	.btn:hover {
+		width: 150px;
+		transition-delay: .2s;
+	}
+
+	.btn:hover>.paragraph {
+		visibility: visible;
+		opacity: 1;
+		-webkit-transition-delay: .4s;
+		transition-delay: .4s;
+	}
+
+	.btn:hover>.icon-wrapper .icon {
+		transform: scale(1.1);
+	}
+
+	.bnt:hover>.icon-wrapper .icon path {
+		stroke: black;
+	}
+
+	.paragraph {
+		color: black;
+		visibility: hidden;
+		opacity: 0;
+		font-size: 18px;
+		margin-right: 20px;
+		padding-left: 20px;
+		-webkit-transition: .2s linear;
+		transition: .2s linear;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+
+	.icon-wrapper {
+		width: 40px;
+		height: 40px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.icon {
+		transform: scale(.9);
+		transition: .2s linear;
+	}
+
+	.icon path {
+		stroke: #000;
+		stroke-width: 2px;
+		-webkit-transition: .2s linear;
+		transition: .2s linear;
+	}
+
+	.button-container {
+		display: flex;
+	}
+
+	a {
+		text-decoration: none;
+	}
+
+	/*Radio Button*/
+
+	.radio-wrapper {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.radio-container {
+		display: flex;
+		align-items: center;
+		margin-right: 20px;
+		cursor: pointer;
+	}
+
+	.radio-container:last-child {
+		margin-right: 0;
+	}
+
+	.radio-container input[type="radio"] {
+		display: none;
+	}
+
+	.radio-checkmark {
+		position: relative;
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		margin-right: 10px;
+		background-color: #fff;
+		border: 2px solid #ccc;
+		border-radius: 50%;
+		transition: all 0.3s;
+	}
+
+	.radio-checkmark::after {
+		content: "";
+		position: absolute;
+		display: none;
+		top: 5px;
+		left: 5px;
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background-color: #2196f3;
+	}
+
+	.radio-container:hover .radio-checkmark {
+		border-color: #2196f3;
+	}
+
+	.radio-container input[type="radio"]:checked+.radio-checkmark::after {
+		display: block;
+	}
+</style>
+
+<div class="card">
+	<div class="card2">
+		<form class="form" th:action="@{/GuardarClientes}" method="POST">
+			<h1 id="heading">Cientes</h1>
+			<div class="button-container">
+				<a class="btn" href="http://localhost:8080/Menu">
+					<p class="paragraph" style="color: rgb(0, 255, 200);"> Menu </p>
+					<span class="icon-wrapper">
+						<img src="https://cdn-icons-png.flaticon.com/512/871/871821.png" width="30px" height="30px">
+						<path
+							d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16"
+							stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+						</svg>
+					</span>
+				</a>
+				<a class="btn" href="http://localhost:8080/TablaClientes">
+					<p class="paragraph" style="color: rgb(0, 255, 200);"> Tabla </p>
+					<span class="icon-wrapper">
+						<img src="https://cdn-icons-png.flaticon.com/512/7427/7427824.png" width="30px" height="30px">
+						<path
+							d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16"
+							stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+						</svg>
+					</span>
+				</a>
+			</div>
+
+			<div class="field">
+				<img src="https://cdn-icons-png.flaticon.com/512/747/747545.png" width="20px" height="20px">
+				<path
+					d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z">
+				</path>
+				</svg>
+				<input type="number" id="cedula" name="cedula" required class="input-field" placeholder="Cédula">
+			</div>
+			<div class="field">
+				<img src="https://cdn-icons-png.flaticon.com/512/1922/1922330.png" width="20px" height="20px">
+				<path
+					d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z">
+				</path>
+				</svg>
+				<input type="text" id="nombres" name="nombres" required class="input-field" placeholder="Nombres"
+					autocomplete="off">
+			</div>
+			<div class="field">
+				<img src="https://cdn-icons-png.flaticon.com/512/1922/1922330.png" width="20px" height="20px">
+				<path
+					d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z">
+				</path>
+				</svg>
+				<input type="text" id="apellidos" name="apellidos" required class="input-field" placeholder="Apellidos">
+			</div>
+			<div class="field">
+				<img src="https://cdn-icons-png.flaticon.com/512/1287/1287949.png" width="20px" height="20px">
+				<path
+					d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z">
+				</path>
+				</svg>
+				<input type="text" id="direccion" name="direccion" required class="input-field" placeholder="Dirección">
+			</div>
+
+			<div class="radio-wrapper">
+				<label class="radio-container">
+					<input type="radio" id="estado" name="estado" value="activo" checked>
+					<span class="radio-checkmark"></span>
+					<span class="radio-label">Activo</span>
+				</label>
+				<label class="radio-container">
+					<input type="radio" name="estado" value="inactivo">
+					<span class="radio-checkmark"></span>
+					<span class="radio-label">Inactivo</span>
+				</label>
+			</div>
+
+				<div class="btn">
+					<button class="button2" type="submit">Registrar Cliente</button>
+				</div><br>
+		</form>
+	</div>
+</div>
+
+</html>

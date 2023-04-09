@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<style>
+	.form {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		margin-left: 2px;
+		margin-right: 2px;
+		padding-left: 3em;
+		padding-right: 3em;
+		padding-bottom: 0.4em;
+		background-color: #171717;
+		border-radius: 20px;
+	}
+
+	#heading {
+		text-align: center;
+		margin: 2em;
+		color: #85C1E9;
+		font-size: 1.2em;
+	}
+
+	.field {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5em;
+		border-radius: 25px;
+		padding: 0.6em;
+		border: none;
+		outline: none;
+		color: white;
+		background-color: #171717;
+		box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+	}
+
+	.input-field {
+		background: none;
+		border: none;
+		outline: none;
+		width: 100%;
+		color: rgb(0, 255, 200);
+	}
+
+	.form .btn {
+		display: flex;
+		justify-content: center;
+		flex-direction: row;
+		margin-top: 2.5em;
+	}
+
+	.button2 {
+		padding: 0.5em;
+		padding-left: 2.3em;
+		padding-right: 2.3em;
+		border-radius: 5px;
+		border: none;
+		outline: none;
+		transition: .4s ease-in-out;
+		background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
+		color: rgb(0, 0, 0);
+	}
+
+	.button2:hover {
+		background-image: linear-gradient(163deg, #00642f 0%, #13034b 100%);
+		color: rgb(0, 255, 200);
+	}
+
+	.card {
+		border-radius: 22px;
+		transition: all .3s;
+		display: flex;
+		margin-top: 5%;
+		margin-bottom: 9%;
+		margin-left: 30%;
+		max-height: 100%;
+		max-width: 100%;
+	}
+
+	.card2 {
+		border-radius: 0;
+		transition: all .2s;
+		display: flex;
+	}
+
+	body {
+		background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+
+	/* Buscar*/
+
+	.form-control {
+		position: relative;
+		margin: 20px 0 40px;
+		width: 190px;
+	}
+
+	.form-control input {
+		background-color: transparent;
+		border: 0;
+		border-bottom: 2px rgb(0, 255, 200) solid;
+		display: block;
+		width: 100%;
+		padding: 15px 0;
+		font-size: 18px;
+		color: rgb(0, 255, 200);
+	}
+
+	.form-control input:focus,
+	.form-control input:valid {
+		outline: 0;
+		border-bottom-color: rgb(0, 255, 200);
+	}
+
+	.form-control label {
+		position: absolute;
+		top: 15px;
+		left: 0;
+		pointer-events: none;
+	}
+
+	.form-control label span {
+		display: inline-block;
+		font-size: 18px;
+		min-width: 5px;
+		color: rgb(0, 255, 200);
+		transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	}
+
+	.form-control input:focus+label span,
+	.form-control input:valid+label span {
+		color: rgb(0, 255, 200);
+		transform: translateY(-30px);
+	}
+
+	.button-container {
+		display: flex;
+	}
+
+	a {
+		text-decoration: none;
+	}
+
+	/*Botones*/
+	.btn {
+		cursor: pointer;
+		width: 50px;
+		height: 50px;
+		border: none;
+		position: relative;
+		border-radius: 10px;
+		background-color: #171717;
+		;
+		-webkit-box-shadow: 1px 1px 5px .2px #00000035;
+		box-shadow: 1px 1px 5px .2px #00000035;
+		-webkit-transition: .2s linear;
+		transition: .2s linear;
+		transition-delay: .2s;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+		-webkit-box-pack: center;
+		-ms-flex-pack: center;
+		justify-content: space-between;
+
+	}
+
+	.btn:hover {
+		width: 150px;
+		transition-delay: .2s;
+	}
+
+	.btn:hover>.paragraph {
+		visibility: visible;
+		opacity: 1;
+		-webkit-transition-delay: .4s;
+		transition-delay: .4s;
+	}
+
+	.btn:hover>.icon-wrapper .icon {
+		transform: scale(1.1);
+	}
+
+	.bnt:hover>.icon-wrapper .icon path {
+		stroke: black;
+	}
+
+	.paragraph {
+		color: black;
+		visibility: hidden;
+		opacity: 0;
+		font-size: 18px;
+		margin-right: 20px;
+		padding-left: 20px;
+		-webkit-transition: .2s linear;
+		transition: .2s linear;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+
+	.icon-wrapper {
+		width: 50px;
+		height: 50px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.icon {
+		transform: scale(.9);
+		transition: .2s linear;
+	}
+
+	.icon path {
+		stroke: #000;
+		stroke-width: 2px;
+		-webkit-transition: .2s linear;
+		transition: .2s linear;
+	}
+
+	/*Botones*/
+	button {
+		width: 70px;
+		height: 30px;
+		font-size: 15px;
+		cursor: pointer;
+		border: none;
+		outline: none;
+		background: transparent;
+		color: rgb(0, 255, 200);
+		font-family: 'Times New Roman', Times, serif;
+		font-weight: 70;
+		position: relative;
+		transition: all 0.5s;
+		z-index: 1;
+		margin: 5px;
+	}
+
+	button::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 5px;
+		height: 100%;
+		background-color: rgb(0, 255, 200);
+		z-index: -1;
+		transition: all 0.5s;
+	}
+
+	button:hover::before {
+		width: 100%;
+	}
+
+	button:hover {
+		color: black;
+	}
+
+	button:active:before {
+		background: #b9b9b9;
+	}
+</style>
+
+
+
+
+<body class=body>
+	<div class="form">
+		<p id="heading"><strong>Tabla Alquiler</strong></p>
+		<div class="button-container">
+			<a class="btn" href="http://localhost:8080/Alquiler">
+				<p class="paragraph" style="color: rgb(0, 255, 200);">Volver&nbsp; &nbsp; </p>
+				<span class="icon-wrapper">
+					<img src="https://cdn-icons-png.flaticon.com/512/4495/4495702.png" width="30px" height="30px">
+					<path
+						d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16"
+						stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+					</svg>
+				</span>
+			</a>
+			<a class="btn" href="http://localhost:8080/Menu">
+				<p class="paragraph" style="color: rgb(0, 255, 200);"> Menu </p>
+				<span class="icon-wrapper">
+					<img src="https://cdn-icons-png.flaticon.com/512/871/871821.png" width="30px" height="30px">
+					<path
+						d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16"
+						stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+					</svg>
+				</span>
+			</a>
+		</div>
+		<div class="form-control">
+			<input type="value" required="">
+			<label>
+				<span style="transition-delay:0ms">B</span><span style="transition-delay:50ms">U</span><span
+					style="transition-delay:100ms">S</span><span style="transition-delay:150ms">C</span><span
+					style="transition-delay:200ms">A</span><span style="transition-delay:250ms">R</span>
+			</label>
+		</div><br><br>
+		<div style="width: 100%;" >
+			<table style="border-color: white; border: 2px; text-align: center; background-color:  rgb(0, 255, 200);">
+
+				<thead style="width: 100%; background-color:#171717;">
+					<tr id="heading">
+						<th style="width: 9em;">ID</th>
+						<th style="width: 9em;">Cliente</th>
+						<th style="width: 9em;">Código del Disfraz</th>
+						<th style="width: 11em;">Fecha Prestamo</th>
+						<th style="width: 11em;">Fecha Devolucion</th>
+						<th style="width: 11em;">Comentarios</th>
+						<th style="width: 11em;">Cantidad</th>
+						<th style="width: 11em;">Total</th>
+						<th style="width: 11em;">Acciones</th>
+					</tr>
+				</thead>
+
+				<tbody style="color:  rgb(0, 255, 200); margin: 10px; background-color: #171717;">
+					<tr th:each="alquiler : ${alquileres}">
+						<td th:text="${alquiler.id_alquiler}" #id id="id_disfraz" name="id_disfraz"></td>
+						<td th:text="${cedula}" #id id="id_disfraz" name="id_disfraz"></td>
+						<td th:text="${codigo}" #id id="id_disfraz" name="id_disfraz"></td>
+						<td th:text="${alquiler.fecha_prestamo}" #codigo id="codigo" name="codigo"></td>
+						<td th:text="${alquiler.fecha_devolucion}" #descripcion id="descripcion" name="descripcion"></td>
+						<td th:text="${alquiler.comentarios_alquiler}" #precio id="precio" name="precio"></td>
+						<td th:text="${alquiler.cantidad_disfraces}" #precio id="precio" name="precio"></td>
+						<td th:text="${alquiler.total_alquiler}" #tipo id="tipo" name="tipo"></td>
+						<td><button>Editar</button>
+
+
+							<button>
+								Eliminar
+							</button>
+						</td>
+					</tr>
+				</tbody>
+
+			</table>
+		</div>
+
+	</div>
+</body>
+
+</html>
